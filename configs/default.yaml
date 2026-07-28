@@ -1,0 +1,67 @@
+# HUST-SOFT training configuration
+
+data:
+  # Paths are resolved relative to the repository root.
+  root: ./data
+  csv_filename: tactile_dataset.csv
+  n_frames: 3
+  image_height: 250
+  image_width: 350
+  validation_ratio: 0.20
+  stratified_split: false
+  augmentation: true
+  max_force: 35.0
+  min_modulus: 0.0
+  max_modulus: 18.0
+  columns:
+    group_id: group_id
+    image_path: image_path
+    force: force_n
+    modulus: youngs_modulus_mpa
+    shore_a: shore_a
+
+model:
+  image_embed_dim: 128
+  attention_heads: 4
+  attention_dropout: 0.10
+  decoder_hidden_dims: [256, 128]
+  decoder_dropout: 0.20
+  pretrained_backbone: true
+  # When false, a failed pretrained-weight download raises a clear error.
+  allow_pretrained_fallback: false
+
+training:
+  seed: 27
+  deterministic: true
+  device: auto
+  epochs: 80
+  batch_size: 64
+  num_workers: 0
+  learning_rate: 0.0001
+  # Preserves the L2 norm penalty used in the original training script.
+  l2_lambda: 0.00005
+  plot_every: 5
+
+evaluation:
+  class_values_mpa:
+    - 1.01
+    - 1.19
+    - 1.63
+    - 1.75
+    - 2.37
+    - 2.75
+    - 3.91
+    - 4.24
+    - 5.78
+    - 6.37
+    - 8.80
+    - 10.63
+    - 15.54
+
+output:
+  root: ./outputs
+  run_name: hust_soft_default
+
+wandb:
+  enabled: false
+  project: HUST-SOFT

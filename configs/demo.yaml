@@ -1,0 +1,51 @@
+# Small offline configuration for the generated demonstration dataset.
+
+data:
+  root: ./demo_data
+  csv_filename: tactile_dataset_demo.csv
+  n_frames: 3
+  image_height: 64
+  image_width: 64
+  validation_ratio: 0.25
+  stratified_split: true
+  augmentation: true
+  max_force: 35.0
+  min_modulus: 0.0
+  max_modulus: 18.0
+  columns:
+    group_id: group_id
+    image_path: image_path
+    force: force_n
+    modulus: youngs_modulus_mpa
+    shore_a: shore_a
+
+model:
+  image_embed_dim: 32
+  attention_heads: 4
+  attention_dropout: 0.10
+  decoder_hidden_dims: [64, 32]
+  decoder_dropout: 0.10
+  pretrained_backbone: false
+  allow_pretrained_fallback: false
+
+training:
+  seed: 27
+  deterministic: true
+  device: auto
+  epochs: 1
+  batch_size: 4
+  num_workers: 0
+  learning_rate: 0.0001
+  l2_lambda: 0.00005
+  plot_every: 1
+
+evaluation:
+  class_values_mpa: [1.19, 2.37, 6.37]
+
+output:
+  root: ./outputs
+  run_name: demo
+
+wandb:
+  enabled: false
+  project: HUST-SOFT
